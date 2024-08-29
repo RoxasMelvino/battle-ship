@@ -14,16 +14,41 @@ class Ship {
 const destroyer = new Ship('destroyer', 2)
 const submarine = new Ship('submarine', 3)
 const cruiser = new Ship('cruiser', 3)
-const battleship = new Ship('battleship', 40)
-const carrier = new Ship('carrier', 50)
+const battleship = new Ship('battleship', 4)
+const carrier = new Ship('carrier', 5)
 
 const ships = [destroyer, submarine, cruiser, battleship, carrier];
 
 // functions ---
 function addShipPiece(ship) {
-    const computerBoardBlocks = document.querySelectorAll('#computer div')
-    console.log(computerBoardBlocks);
-}
+
+    // The computer will randomly place battle ships 
+    const computerBoardBlocks = document.querySelectorAll('#computer div') // grab the gridblocks
+    let randomBoolean = Math.random() < 0.5;
+    let isHorizontal = randomBoolean;
+    let randStartIdx = Math.floor(Math.random() * width * width);
+    console.log(randStartIdx);
+
+    console.log(randStartIdx);
+    
+    // collect the divs that the ship length is taking
+    let shipBlocks = [];
+
+    // use ship length property to iterate through it to add the appropriate length for said ship
+    for (let i = 0; i < ship.length; i++) {
+        if (isHorizontal) {
+            shipBlocks.push(computerBoardBlocks[randStartIdx + i]);
+        } else {
+            shipBlocks.push(computerBoardBlocks[randStartIdx + i * width])
+        }
+    };
+
+    // iterate through shipblocks and add color
+    shipBlocks.forEach(block => {
+        block.classList.add(ship.name);
+        block.classList.add('occupied'); 
+    })
+};
 
 
 let angle = 0;
@@ -35,6 +60,7 @@ function flipShips() {
 }
 
 // game boards
+let width = 10;
 function createBoard(color, user) {
     const gameBoardBox = document.createElement('div');
 
@@ -42,7 +68,8 @@ function createBoard(color, user) {
     gameBoardBox.style.backgroundColor = color;
     gameBoardBox.id = user;
 
-    for (let i = 0; i < 100; i++) {
+    // create grid blocks and append inside the game board box
+    for (let i = 0; i < width * width; i++) {
         const gridBlock = document.createElement('div');
         gridBlock.classList.add('grid-block');
         gridBlock.id = i
@@ -58,3 +85,7 @@ function createBoard(color, user) {
 flipBtn.addEventListener('click', flipShips)
 createBoard("#77DD77", "player");
 createBoard("#FFD1DC", "computer");
+
+ships.forEach(ship => {
+    addShipPiece(ship)
+})
