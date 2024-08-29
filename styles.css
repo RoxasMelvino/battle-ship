@@ -30,6 +30,17 @@ body {
     /* border: 1px solid #ccc; */
 }
 
+.hover {
+    background-color: #ccc;
+}
+
+.boom {
+    background-color: #f00;
+}
+
+.empty {
+    background-color: #ccc;
+}
 
 /* assign the colors for the ships when dragged to gameboard*/
 .add-width-margin {

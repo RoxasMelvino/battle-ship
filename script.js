@@ -21,22 +21,12 @@ const ships = [destroyer, submarine, cruiser, battleship, carrier];
 let notDropped;
 
 // functions ---
-function addShipPiece(user, ship, startId) {
-
-    // The computer will randomly place battle ships 
-    const computerBoardBlocks = document.querySelectorAll(`#${user} div`) // grab the gridblocks
-    let randomBoolean = Math.random() < 0.5;
-    let isHorizontal = user === 'player' ? angle === 0 : randomBoolean;
-    let randStartIdx = Math.floor(Math.random() * width * width);
-
-    let startIndex = startId ? startId : randStartIdx;
-
+function getValidity(allBoardBlocks, isHorizontal, startIndex, ship) {
     let validStart = isHorizontal ? startIndex <= width * width - ship.length ? startIndex : 
     width * width - ship.length : 
     // handle vertical ships
     startIndex <= width * width - width * ship.length ? startIndex : 
         startIndex - ship.length * width + width;
-
     
     // collect the divs that the ship length is taking
     let shipBlocks = [];
@@ -44,9 +34,9 @@ function addShipPiece(user, ship, startId) {
     // use ship length property to iterate through it to add the appropriate length for said ship
     for (let i = 0; i < ship.length; i++) {
         if (isHorizontal) {
-            shipBlocks.push(computerBoardBlocks[Number(validStart) + i]);
+            shipBlocks.push(allBoardBlocks[Number(validStart) + i]);
         } else {
-            shipBlocks.push(computerBoardBlocks[Number(validStart) + i * width])
+            shipBlocks.push(allBoardBlocks[Number(validStart) + i * width])
         }
     };
     
@@ -62,7 +52,22 @@ function addShipPiece(user, ship, startId) {
     }
 
     const notOccupied = shipBlocks.every(shipBlock => !shipBlock.classList.contains('occupied'))
-    
+
+    return {shipBlocks, valid, notOccupied}
+}
+
+function addShipPiece(user, ship, startId) {
+
+    // The computer will randomly place battle ships 
+    const allBoardBlocks = document.querySelectorAll(`#${user} div`) // grab the gridblocks
+    let randomBoolean = Math.random() < 0.5;
+    let isHorizontal = user === 'player' ? angle === 0 : randomBoolean;
+    let randStartIdx = Math.floor(Math.random() * width * width);
+
+    let startIndex = startId ? startId : randStartIdx;
+
+    const { shipBlocks, valid, notOccupied } = getValidity(allBoardBlocks, isHorizontal, startIndex, ship);
+
     if (valid && notOccupied) {
         // iterate through shipblocks, add color, and add occupied class
         shipBlocks.forEach(block => {
@@ -70,7 +75,7 @@ function addShipPiece(user, ship, startId) {
             block.classList.add('occupied'); 
         })
     } else {
-        if (user === 'computer') addShipPiece(ship);
+        if (user === 'computer') addShipPiece(user, ship, startId);
         if (user === 'player') notDropped = true;
     }
 
@@ -95,6 +100,8 @@ function dragStart(e) {
 
 function dragOver(e) {
     e.preventDefault();
+    const ship = ships[draggedShip.id];
+    highlightArea(e.target.id, ship)
 }
 
 function dropShip(e) {
@@ -134,6 +141,18 @@ function createBoard(color, user) {
     gameBoards.appendChild(gameBoardBox);
 }
 
+function highlightArea(startIndex, ship) {
+    const allBoardBlocks = document.querySelectorAll('#player div');
+    let isHorizontal = angle === 0;
+
+    const { shipBlocks, valid, notOccupied } = getValidity(allBoardBlocks, isHorizontal, startIndex, ship)
+    if (valid && notOccupied) {
+        shipBlocks.forEach(block => {
+            block.classList.add('hover');
+            setTimeout(() => block.classList.remove('hover'), 500)
+        })
+    }
+}
 
 
 //  event listeners ---
