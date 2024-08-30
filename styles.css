@@ -34,10 +34,6 @@ body {
     background-color: #ccc;
 }
 
-.boom {
-    background-color: #f00;
-}
-
 .empty {
     background-color: #ccc;
 }
@@ -98,6 +94,12 @@ body {
 
 .options-container .carrier-preview {
     width: 50px;
+}
+
+
+/* Add this class when a ship has been hit! */
+.boom {
+    background-color: #f00;
 }
 
 
