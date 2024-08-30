@@ -160,11 +160,16 @@ let gameOver = false;
 let playerTurn;
 
 function startGame() {
-    if (optionsContainer.children.length != 0) {
-        infoDisplay.textContent = "Begin Placing your pieces!"
-    } else {
-        const allBoardBlocks = document.querySelectorAll('#computer div');
-        allBoardBlocks.forEach(block => block.addEventListener('click', handleClick))
+    if (playerTurn === undefined) {
+        if (optionsContainer.children.length != 0) {
+            infoDisplay.textContent = "Begin Placing your pieces!"
+        } else {
+            const allBoardBlocks = document.querySelectorAll('#computer div');
+            allBoardBlocks.forEach(block => block.addEventListener('click', handleClick))
+            playerTurn = true;
+            turnDisplay.textContent = "Your turn";
+            infoDisplay.textContent = "The Game has started."
+        }
     }
 }
 
@@ -238,11 +243,12 @@ function checkScore(user, userHits, userSunkShips) {
         if (
             userHits.filter(storedShipName => storedShipName === shipName).length === shipLength
         ) {
-            infoDisplay.textContent = `You sunk the ${user}'s ${shipName}.`
             if (user === 'player') {
+                infoDisplay.textContent = `You sunk the computers ${shipName}.`
                 playerHits = userHits.filter(storedShipName => storedShipName !== shipName)
             }
             if (user === 'computer') {
+                infoDisplay.textContent = `The computer sunk your ${shipName}.`
                 computerHits = userHits.filter(storedShipName => storedShipName !== shipName)
             }
             userSunkShips.push(shipName)
@@ -254,6 +260,18 @@ function checkScore(user, userHits, userSunkShips) {
     checkShip('cruiser', 3);
     checkShip('battleship', 4);
     checkShip('carrier', 5);
+    
+    console.log('playerHits', playerHits);
+    console.log('playerSunkships', playerSunkShips);
+
+    if (playerSunkShips.length === 5) {
+        infoDisplay.textContent = "You sunk all the computers ships!"
+        gameOver = true;
+    }
+    if (computer.length === 5) {
+        infoDisplay.textContent = "The computer has sunk all your ships."
+        gameOver = true;
+    }
 }
 
 //  event listeners ---

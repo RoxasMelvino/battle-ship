@@ -35,8 +35,21 @@ body {
 }
 
 .empty {
-    background-color: #ccc;
+    background-color: #ccc !important;
 }
+
+.boom {
+    background-color: #f00 !important;
+}
+
+#computer .destroyer,
+#computer .submarine,
+#computer .cruiser,
+#computer .battleship,
+#computer .carrier {
+    background-color: #FFD1DC; 
+}
+
 
 /* assign the colors for the ships when dragged to gameboard*/
 .add-width-margin {
@@ -96,11 +109,6 @@ body {
     width: 50px;
 }
 
-
-/* Add this class when a ship has been hit! */
-.boom {
-    background-color: #f00;
-}
 
 
 
