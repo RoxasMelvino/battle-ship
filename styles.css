@@ -12,14 +12,15 @@ body {
 
 /* gameboards */
 #gameboards {
-    width: 85%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 5rem;
 }
 
 .game-board-box {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -27,19 +28,32 @@ body {
 .grid-block { /* gameboard will have a 10 by 10 grid */
     width: 20px;
     height: 20px;
-    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    margin: 1px;
 }
 
+#player .grid-block {
+    background-color: #e8f4f8;
+}
+
+#computer .grid-block {
+    background-color: #f2f2f2 !important;
+}
+
+.grid-block:hover {
+    border: 1px solid #9d9d9d
+}
+
+
+
 .hover {
-    background-color: #ccc;
+    background-color: #ccc !important;
+    border-radius: 100%;
 }
 
 .empty {
-    background-color: #ccc !important;
-}
-
-.boom {
-    background-color: #f00 !important;
+    background-color: #9d9d9d !important;
+    border-radius: 100%;
 }
 
 #computer .destroyer,
@@ -47,7 +61,7 @@ body {
 #computer .cruiser,
 #computer .battleship,
 #computer .carrier {
-    background-color: #FFD1DC; 
+    background-color: #fff; 
 }
 
 
@@ -58,34 +72,35 @@ body {
 }
 
 .destroyer {
-    background-color: #964B00;
+    background-color: #964B00 !important;
 }
 
 .submarine {
-    background-color: #00ff00;
+    background-color: #00ff00 !important;
 }
 
 .cruiser {
-    background-color: #ff00ff;
+    background-color: #ff00ff !important;
 }
 
 .battleship {
-    background-color: #ffa500;
+    background-color: #ffa500 !important;
 }
 
 .carrier {
-    background-color: #0000ff;
+    background-color: #0000ff !important;
 }
  
 /* ship options */
 
 .options-container {
-    /* border: 2px solid #f00; */
+    border: 2px solid #f00;
     width: 500px;
     height: 50px;
-    margin: 50px 0;
+    margin: 50px auto;
     background-color: #e9df4e;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -109,6 +124,13 @@ body {
     width: 50px;
 }
 
+/* Add this styling when the player or computer hits a ship */
+.boom {
+    background-color: #EE3C2F !important;
+    border-radius: 100%;
+}
 
-
+#computer .boom {
+    background-color: #EE3C2F !important;
+}
 

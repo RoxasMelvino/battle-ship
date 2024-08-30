@@ -151,7 +151,7 @@ function highlightArea(startIndex, ship) {
     if (valid && notOccupied) {
         shipBlocks.forEach(block => {
             block.classList.add('hover');
-            setTimeout(() => block.classList.remove('hover'), 500)
+            setTimeout(() => block.classList.remove('hover'), 1000)
         })
     }
 }
@@ -277,8 +277,8 @@ function checkScore(user, userHits, userSunkShips) {
 //  event listeners ---
 flipBtn.addEventListener('click', flipShips)
 startBtn.addEventListener('click', startGame)
-createBoard("#77DD77", "player");
-createBoard("#FFD1DC", "computer");
+createBoard("#fff", "player");
+createBoard("#fff", "computer");
 
 ships.forEach(ship => {
     addShipPiece('computer', ship)
