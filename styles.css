@@ -8,6 +8,7 @@ body {
     width: 100vw;
     height: 100vh;
     padding: 1rem;
+    overflow-x: hidden;
 }
 
 /* display player and opponent name */
@@ -132,7 +133,9 @@ body {
     border-radius: 1rem;
     width: 100px;
     margin: 10px 10px;
+    background-color: #ffb833;
     transition: 150ms ease;
+    color: #fff;
 }
 
 .game-ctrls button:hover {

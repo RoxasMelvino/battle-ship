@@ -125,11 +125,10 @@ function flipShips() {
 
 // game boards
 let width = 10;
-function createBoard(color, user) {
+function createBoard(user) {
     const gameBoardBox = document.createElement('div');
 
     gameBoardBox.classList.add('game-board-box');
-    gameBoardBox.style.backgroundColor = color;
     gameBoardBox.id = user;
 
     // create grid blocks and append inside the game board box
@@ -277,8 +276,8 @@ function checkScore(user, userHits, userSunkShips) {
 //  event listeners ---
 flipBtn.addEventListener('click', flipShips)
 startBtn.addEventListener('click', startGame)
-createBoard("#fff", "player");
-createBoard("#fff", "computer");
+createBoard("player");
+createBoard("computer");
 
 ships.forEach(ship => {
     addShipPiece('computer', ship)
