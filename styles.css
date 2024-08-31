@@ -10,6 +10,29 @@ body {
     padding: 1rem;
 }
 
+/* display player and opponent name */
+.players {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+.players .box {
+    width: 200px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 5px;
+    border-radius: .6rem;
+}
+
+.players .player {
+    background-color: #83f28f;
+}
+
+.players .opponent {
+    background-color: #f37168;
+}
+
 /* gameboards */
 #gameboards {
     width: 100%;
@@ -43,8 +66,6 @@ body {
 .grid-block:hover {
     border: 1px solid #9d9d9d
 }
-
-
 
 .hover {
     background-color: #ccc !important;
@@ -90,18 +111,63 @@ body {
 .carrier {
     background-color: #0000ff !important;
 }
- 
+
+/* game status */
+#game-info {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.game-ctrls {
+    margin: 0 auto;
+    width: 250px;
+    height: 50px;
+    
+}
+
+.game-ctrls button {
+    border: 0;
+    padding: .5rem;
+    border-radius: 1rem;
+    width: 100px;
+    margin: 10px 10px;
+    transition: 150ms ease;
+}
+
+.game-ctrls button:hover {
+    transform: scale(1.1);
+}
+
+#game-info p {
+    width: 50%;
+    margin: 15px auto;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+#game-info .info-container {
+    background-color: #6d72c3;
+    color: #fff;
+}
+
+#game-info .turn-container {
+    border: 1px solid #353238
+}
+
 /* ship options */
 
 .options-container {
-    border: 2px solid #f00;
     width: 500px;
     height: 50px;
     margin: 50px auto;
-    background-color: #e9df4e;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.options-container .preview {
+    border-radius: 1rem;
 }
 
 .options-container .destroyer-preview {

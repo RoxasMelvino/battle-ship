@@ -162,13 +162,13 @@ let playerTurn;
 function startGame() {
     if (playerTurn === undefined) {
         if (optionsContainer.children.length != 0) {
-            infoDisplay.textContent = "Begin Placing your pieces!"
+            infoDisplay.textContent = "Plan your fleet positions"
         } else {
             const allBoardBlocks = document.querySelectorAll('#computer div');
             allBoardBlocks.forEach(block => block.addEventListener('click', handleClick))
             playerTurn = true;
             turnDisplay.textContent = "Your turn";
-            infoDisplay.textContent = "The Game has started."
+            infoDisplay.textContent = "The battle begins!"
         }
     }
 }
@@ -192,7 +192,7 @@ function handleClick(e) {
         }
 
         if (!e.target.classList.contains('occupied')) { // if the player does not hit a ship
-            infoDisplay.textContent = 'No hit!';
+            infoDisplay.textContent = 'Miss';
             e.target.classList.add('empty');
         }
 
@@ -205,8 +205,8 @@ function handleClick(e) {
 
 function computerGo(e) {
     if (!gameOver) {
-        turnDisplay.textContent = "Computers turn."
-        infoDisplay.textContent = 'The computer is thinking...'
+        turnDisplay.textContent = "Opponent's turn"
+        infoDisplay.textContent = 'The opponent is planning...'
 
         setTimeout(() => {
             let randomGo = Math.floor(Math.random() * (width * width));
@@ -217,20 +217,20 @@ function computerGo(e) {
                 return;
             } else if (allBoardBlocks[randomGo].classList.contains('occupied') && !allBoardBlocks[randomGo].classList.contains('boom')) {
                 allBoardBlocks[randomGo].classList.add('boom');
-                infoDisplay.textContent = 'The computer hit your ship.'
+                infoDisplay.textContent = 'The opponent hit your ship.'
                 let classes = Array.from(allBoardBlocks[randomGo].classList);
                 classes = classes.filter(className => className !== 'grid-block' && className !== 'boom' && className !== 'occupied')
                 checkScore('computer', computerHits, computerSunkShips);
             } else {
-                infoDisplay.textContent = "Nothing hit!";
+                infoDisplay.textContent = "Miss";
                 allBoardBlocks[randomGo].classList.add('empty')
             }
         }, 3000)
 
         setTimeout(() => {
             playerTurn = true; 
-            turnDisplay.textContent = 'Your turn!';
-            infoDisplay.textContent = "Please take your go";
+            turnDisplay.textContent = 'Your turn';
+            infoDisplay.textContent = "Waiting for your strike...";
             const allBoardBlocks = document.querySelectorAll('#computer div');
             allBoardBlocks.forEach(block => block.addEventListener('click', handleClick))
         }, 6000)
@@ -244,11 +244,11 @@ function checkScore(user, userHits, userSunkShips) {
             userHits.filter(storedShipName => storedShipName === shipName).length === shipLength
         ) {
             if (user === 'player') {
-                infoDisplay.textContent = `You sunk the computers ${shipName}.`
+                infoDisplay.textContent = `You sunk the opponents ${shipName}.`
                 playerHits = userHits.filter(storedShipName => storedShipName !== shipName)
             }
             if (user === 'computer') {
-                infoDisplay.textContent = `The computer sunk your ${shipName}.`
+                infoDisplay.textContent = `The opponent sunk your ${shipName}.`
                 computerHits = userHits.filter(storedShipName => storedShipName !== shipName)
             }
             userSunkShips.push(shipName)
@@ -265,11 +265,11 @@ function checkScore(user, userHits, userSunkShips) {
     console.log('playerSunkships', playerSunkShips);
 
     if (playerSunkShips.length === 5) {
-        infoDisplay.textContent = "You sunk all the computers ships!"
+        infoDisplay.textContent = "You sunk all the opponents ships!"
         gameOver = true;
     }
     if (computer.length === 5) {
-        infoDisplay.textContent = "The computer has sunk all your ships."
+        infoDisplay.textContent = "The opposition has sunk all your ships."
         gameOver = true;
     }
 }
@@ -285,3 +285,4 @@ ships.forEach(ship => {
 })
 
 dragPlayerShips();
+infoDisplay.textContent = "Begin by placing all of your ships"
