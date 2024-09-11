@@ -9,6 +9,7 @@ body {
     height: 100vh;
     padding: 1rem;
     overflow-x: hidden;
+    background-color: #000;
 }
 
 /* display player and opponent name */

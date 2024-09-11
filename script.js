@@ -23,6 +23,9 @@ const ships = [destroyer, submarine, cruiser, battleship, carrier];
 let notDropped;
 
 // functions ---
+
+// this function will make sure the blocks do not get cut at the edge of the board 
+// this will also make sure that other ships do not overlap one another.
 function getValidity(allBoardBlocks, isHorizontal, startIndex, ship) {
     let validStart = isHorizontal ? startIndex <= width * width - ship.length ? startIndex : 
     width * width - ship.length : 
@@ -62,13 +65,13 @@ function addShipPiece(user, ship, startId) {
 
     // The computer will randomly place battle ships 
     const allBoardBlocks = document.querySelectorAll(`#${user} div`) // grab the gridblocks
-    let randomBoolean = Math.random() < 0.5;
-    let isHorizontal = user === 'player' ? angle === 0 : randomBoolean;
-    let randStartIdx = Math.floor(Math.random() * width * width);
+    let randomBoolean = Math.random() < 0.5; // random boolean
+    let isHorizontal = user === 'player' ? angle === 0 : randomBoolean; // if the ship is being added by a user grab the angle, otherwise return a random boolean for the computer
+    let randStartIdx = Math.floor(Math.random() * width * width); // This random start index is for the computer and uses a 10 x 10 width
 
-    let startIndex = startId ? startId : randStartIdx;
+    let startIndex = startId ? startId : randStartIdx; // if there is a startID (from the player when they drop the ship) grab the start id, if not, grab the random start index for the computer
 
-    const { shipBlocks, valid, notOccupied } = getValidity(allBoardBlocks, isHorizontal, startIndex, ship);
+    const { shipBlocks, valid, notOccupied } = getValidity(allBoardBlocks, isHorizontal, startIndex, ship); 
 
     if (valid && notOccupied) {
         // iterate through shipblocks, add color, and add occupied class
