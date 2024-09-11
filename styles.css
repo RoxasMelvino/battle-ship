@@ -156,7 +156,8 @@ body {
 }
 
 #game-info .turn-container {
-    border: 1px solid #353238
+    border: 1px solid #353238;
+    color: #fff;
 }
 
 /* ship options */

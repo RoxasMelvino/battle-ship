@@ -65,11 +65,16 @@ function addShipPiece(user, ship, startId) {
 
     // The computer will randomly place battle ships 
     const allBoardBlocks = document.querySelectorAll(`#${user} div`) // grab the gridblocks
-    let randomBoolean = Math.random() < 0.5; // random boolean
-    let isHorizontal = user === 'player' ? angle === 0 : randomBoolean; // if the ship is being added by a user grab the angle, otherwise return a random boolean for the computer
-    let randStartIdx = Math.floor(Math.random() * width * width); // This random start index is for the computer and uses a 10 x 10 width
+    let randomBoolean = Math.random() < 0.5; // random boolean for isHorizontal
 
-    let startIndex = startId ? startId : randStartIdx; // if there is a startID (from the player when they drop the ship) grab the start id, if not, grab the random start index for the computer
+    // if the ship is being added by a user grab the angle, otherwise return a random boolean for the computer
+    let isHorizontal = user === 'player' ? angle === 0 : randomBoolean; 
+
+    // This random start index is for the computer and uses a 10 x 10 width
+    let randStartIdx = Math.floor(Math.random() * width * width); 
+
+    // if there is a startID (from the player when they drop the ship) grab the start id, if not, grab the random start index for the computer
+    let startIndex = startId ? startId : randStartIdx; 
 
     const { shipBlocks, valid, notOccupied } = getValidity(allBoardBlocks, isHorizontal, startIndex, ship); 
 
