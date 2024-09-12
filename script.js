@@ -180,6 +180,8 @@ function startGame() {
     }
 }
 
+
+// store the player and computer hits
 let playerHits = [];
 let computerHits = [];
 const playerSunkShips = [];
